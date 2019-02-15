@@ -1,0 +1,17 @@
+{% extends 'survey/base.html' %}
+{% load i18n %}
+
+{% block body %}
+<div class="container" id="intro">
+	<div class="jumbotron jumbotron-fluid">
+			<div class="container">
+				<h1 class="display-3 text-center">{% trans "Welcome to Our Survey App"%}</h1>
+			</div>
+	</div>
+	<ul class="list-group">
+		{% for survey in surveys %}
+			<li class="list-group-item list-group-item-action"><a href="{{ survey.get_absolute_url }}">{% trans "Take the"%} {{survey.name}}</a></li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}
