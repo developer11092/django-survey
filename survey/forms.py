@@ -58,12 +58,12 @@ class ResponseForm(models.ModelForm):
         :rtype: Response or None"""
         if not self.user.is_authenticated:
             return None
-        try:
-            return Response.objects.get(user=self.user, survey=self.survey)
-        except Response.DoesNotExist:
-            LOGGER.debug("No saved response for '%s' for user %s",
-                         self.survey, self.user)
-            return None
+        # try:
+        #     return Response.objects.get(user=self.user, survey=self.survey)
+        # except Response.DoesNotExist:
+        #     LOGGER.debug("No saved response for '%s' for user %s",
+        #                  self.survey, self.user)
+        #     return None
 
     def _get_preexisting_answer(self, question):
         """ Recover a pre-existing answer in database.
