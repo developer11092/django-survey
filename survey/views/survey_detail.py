@@ -3,15 +3,22 @@
 from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import View
+from random import randint
 
 from survey.forms import ResponseForm
 from survey.models import Category, Survey
+from video.models import Video, VideoCategory
 
 
 class SurveyDetail(View):
 
     def get(self, request, *args, **kwargs):
         survey = get_object_or_404(Survey, is_published=True, id=kwargs['id'])
+        if request.GET.get("videoID") is not None:
+            video = get_object_or_404(Video, id=request.GET.get("videoID"))
+        else:
+            video = Video.objects(Survey.video_cat.id)
+        responses = Response.objects.filter(video=video)
         if survey.template is not None and len(survey.template) > 4:
             template_name = survey.template
         else:
@@ -28,6 +35,7 @@ class SurveyDetail(View):
             'response_form': form,
             'survey': survey,
             'categories': categories,
+            'video': video,
         }
 
         return render(request, template_name, context)

@@ -28,7 +28,7 @@ logging.basicConfig(level=logging.DEBUG, format='%(name)s.%(funcName)s() l.%(lin
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'survey', 
+        'NAME': 'survey2', 
         'USER': 'postgres',  
         'PASSWORD': 'admin',  
         'HOST': 'localhost',  
@@ -119,6 +119,7 @@ INSTALLED_APPS = (
     'survey',
     'bootstrapform',
     'company',
+    'video',
     # 'rosetta',
 )
 

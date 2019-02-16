@@ -4,8 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from company.models import Company
-
-
+from video.models import Video, VideoCategory
 
 try:
     from django.conf import settings
@@ -26,10 +25,18 @@ class Survey(models.Model):
     template = models.CharField(_("Template"), max_length=255, null=True, blank=True)
     allows_multiple_interviews = models.BooleanField(verbose_name=_("Allows multiple interviews"),
                                                      blank=True, default=True)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE,
+    company = models.ForeignKey(Company,
+                               on_delete=models.CASCADE,
                                verbose_name=_("company"),
                                related_name="surveys",
                                null=True)
+    video_cat = models.ForeignKey(VideoCategory,
+                             verbose_name=_("videocategory"),
+                             related_name="surveys",
+                             on_delete=models.CASCADE,
+                             null=True)
+    # geolocation = models.
+
     class Meta(object):
         verbose_name = _('survey')
         verbose_name_plural = _('surveys')
