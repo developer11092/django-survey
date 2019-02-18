@@ -10,7 +10,7 @@ from django.utils.text import slugify
 
 from survey.models import Answer, Question, Response
 from survey.signals import survey_completed
-from survey.widgets import ImageSelectWidget
+from survey.widgets import ImageSelectWidget, VideoSelectWidget
 
 LOGGER = logging.getLogger(__name__)
 
@@ -24,6 +24,7 @@ class ResponseForm(models.ModelForm):
         Question.SELECT: forms.Select,
         Question.SELECT_IMAGE: ImageSelectWidget,
         Question.SELECT_MULTIPLE: forms.CheckboxSelectMultiple,
+        Question.VIDEO: VideoSelectWidget,
     }
 
     class Meta(object):
@@ -177,7 +178,7 @@ class ResponseForm(models.ModelForm):
             field.widget.attrs["category"] = question.category.name
         else:
             field.widget.attrs["category"] = ""
-        # logging.debug("Field for %s : %s", question, field.__dict__)
+        logging.debug("Field for %s : %s", question, field.__dict__)
         self.fields['question_%d' % question.pk] = field
 
     def has_next_step(self):

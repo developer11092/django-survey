@@ -54,6 +54,7 @@ class Question(models.Model):
     SELECT_IMAGE = 'select_image'
     SELECT_MULTIPLE = 'select-multiple'
     INTEGER = 'integer'
+    VIDEO = 'video'
 
     QUESTION_TYPES = (
         (TEXT, _('text (multiple line)')),
@@ -63,6 +64,7 @@ class Question(models.Model):
         (SELECT_MULTIPLE, _('Select Multiple')),
         (SELECT_IMAGE, _('Select Image')),
         (INTEGER, _('integer')),
+        (VIDEO, _('video')),
     )
 
     text = models.TextField(_("Text"))
@@ -82,6 +84,9 @@ class Question(models.Model):
     image = models.ImageField(verbose_name=_("image"),
                               upload_to= "survey/images/questions" + "/%Y/%m/%d/",
                               null=True, blank= True)
+    video = models.FileField(verbose_name=_("video"),
+                             upload_to= "survey/video/questions" + "/%Y/%m/%d/",
+                             null=True, blank=True)
 
     class Meta(object):
         verbose_name = _('question')

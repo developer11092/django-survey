@@ -15,7 +15,7 @@
 	<form action="{% url 'survey-detail' id=survey.id %}" method="post">
 	    {% csrf_token %}
 	    <div>
-		{% if video.name == null %}
+		{% comment %} {% if video.name == null %}
 		
 		{% else %}
 		<h3>Video content</h3>
@@ -26,7 +26,7 @@
 		Please follow the URL <a href="{{ video.url }}">here</a> to watch the video content.
 	    {% endif %}
 		{% endif %}
-	    </div>
+	    </div> {% endcomment %}
         {% for category in categories %}
             <h3> {{category}} </h3>
             <p> {{category.description}} </p>
