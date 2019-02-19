@@ -35,7 +35,6 @@ class ResponseForm(models.ModelForm):
         """ Expects a survey object to be passed in initially """
         self.survey = kwargs.pop('survey')
         self.user = kwargs.pop('user')
-        self.question = kwargs.pop('question')
         try:
             self.step = int(kwargs.pop('step'))
         except KeyError:

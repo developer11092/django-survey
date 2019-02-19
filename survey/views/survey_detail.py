@@ -1,18 +1,14 @@
-# -*- coding: utf-8 -*-
-
 from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import View
 
 from survey.forms import ResponseForm
-from survey.models import Category, Survey, Response, Question
+from survey.models import Category, Survey
 
 
 class SurveyDetail(View):
-
     def get(self, request, *args, **kwargs):
         survey = get_object_or_404(Survey, is_published=True, id=kwargs["id"])
-        question = Question
         if survey.template is not None and len(survey.template) > 4:
             template_name = survey.template
         else:
@@ -24,9 +20,9 @@ class SurveyDetail(View):
             return redirect("%s?next=%s" % (settings.LOGIN_URL, request.path))
         categories = Category.objects.filter(survey=survey).order_by("order")
         form = ResponseForm(
-            survey=survey, question=question , user=request.user, step=kwargs.get("step", 0)
+            survey=survey, user=request.user, step=kwargs.get("step", 0)
         )
-        context = {"response_form": form, "survey": survey, "categories": categories, "question": question}
+        context = {"response_form": form, "survey": survey, "categories": categories}
 
         return render(request, template_name, context)
 
@@ -35,11 +31,10 @@ class SurveyDetail(View):
         if survey.need_logged_user and not request.user.is_authenticated:
             return redirect("%s?next=%s" % (settings.LOGIN_URL, request.path))
         categories = Category.objects.filter(survey=survey).order_by("order")
-        question = get_object_or_404(Question, id=request.POST.get("videoID"))
         form = ResponseForm(
-            request.POST, survey=survey, question=question, user=request.user, step=kwargs.get("step", 0)
+            request.POST, survey=survey, user=request.user, step=kwargs.get("step", 0)
         )
-        context = {"response_form": form, "survey": survey, "categories": categories, "question": question}
+        context = {"response_form": form, "survey": survey, "categories": categories}
         if form.is_valid():
             session_key = "survey_%s" % (kwargs["id"],)
             if session_key not in request.session:
@@ -53,7 +48,7 @@ class SurveyDetail(View):
             if survey.display_by_question:
                 if not form.has_next_step():
                     save_form = ResponseForm(
-                        request.session[session_key], survey=survey, user=request.user, question=question,
+                        request.session[session_key], survey=survey, user=request.user
                     )
                     response = save_form.save()
             else:

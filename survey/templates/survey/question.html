@@ -1,31 +1,25 @@
 {% load bootstrap %}
 
-{% for form in response_form %}
-	{% if form.field.widget.attrs.category == category.name or not form.field.widget.attrs.category %}
-        <tr class="{% if form.errors%} danger {% endif %}">
-            <td>
-	            {{ form.label|safe }}
-	            {% if form.field.required %}
-	                <span class="glyphicon glyphicon-asterisk" style="color:red"> </span>
-	            {% endif %}
-	            <span class="help-inline" style="color:red">
-	                <strong> {% for error in  form.errors %}{{ error }}{% endfor %} </strong>
-	            </span> <br>
-				{% if question.vid_url != null %}
-				<iframe width="853" height="480" src="{{ question.vid_url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-				<input type="hidden" id="videoID" name="videoID" value="{{ question.vid_url }}">
-				<br/>
-				{% for field in form %}
-                    {{ field }}
-                {% endfor %}
-				{% else %}
-				{% for field in form %}
-                    {{ field }}
-                {% endfor %}
-	            {% endif %}
-            </td>
-        </tr>
-	{% endif %}
-{% endfor %}
-    </tbody>
+<table class="table table-hover">
+    <tbody>
+	{% for form in response_form %}
+		{% if form.field.widget.attrs.category == category.name or not form.field.widget.attrs.category %}
+			<tr class="{% if form.errors%} danger {% endif %}">
+				<td>
+					{{ form.label|safe }}
+					{% if form.field.required %}
+						<span class="glyphicon glyphicon-asterisk" style="color:red"> </span>
+					{% endif %}
+					<span class="help-inline" style="color:red">
+						<strong> {% for error in  form.errors %}{{ error }}{% endfor %} </strong>
+					</span>
+					<br>
+					{% for field in form %}
+						{{ field }}
+					{% endfor%}
+				</td>
+			</tr>
+		{% endif %}
+	{% endfor %}
+	</tbody>
 </table>
