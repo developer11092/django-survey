@@ -13,20 +13,7 @@
 	<div class="survey-description"> {{survey.description|safe}} </div>
 	<div>
 	<form action="{% url 'survey-detail' id=survey.id %}" method="post">
-	    {% csrf_token %}
-	    <div>
-		{% comment %} {% if video.name == null %}
-		
-		{% else %}
-		<h3>Video content</h3>
-		<input type="hidden" id="videoID" name="videoID" value="{{ video.id }}">
-	    {% if video.type == 0 %}
-	    <iframe width="860" height="480" src="https://www.youtube.com/embed/{{ video.vid }}/?mute=1&start={{ video.start }}&end={{ video.end }}&showinfo=0&controls=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-	    {% else %}
-		Please follow the URL <a href="{{ video.url }}">here</a> to watch the video content.
-	    {% endif %}
-		{% endif %}
-	    </div> {% endcomment %}
+	    {% csrf_token %} 
         {% for category in categories %}
             <h3> {{category}} </h3>
             <p> {{category.description}} </p>
@@ -44,7 +31,7 @@
 				        <div id="collapse{{category.slugify}}" class="panel-collapse collapse
 				        {{ response_form|collapse_form:category }}">
 				            <div class="panel-body">
-	                           {% include "survey/question.html" %}
+							   {% include "survey/question.html" %}
                             </div>
 		                </div>
                 </div>
@@ -53,7 +40,7 @@
             <h3> {% trans "Questions" %} </h3>
             {% include "survey/question.html" %}
         {% endfor %}
-
+		
         <br>
 
 	    <input
@@ -61,5 +48,6 @@
 	        type="submit"
 	        value="{% trans "I'm done!" %}"
         >
-	</form></div>
+	</form>
+	</div>
 {% endblock %}

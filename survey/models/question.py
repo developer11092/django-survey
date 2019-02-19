@@ -67,7 +67,10 @@ class Question(models.Model):
         (VIDEO, _('video')),
     )
 
-    text = models.TextField(_("Text"))
+    text = models.CharField(_("Question"), max_length=300)
+    vid_url = models.CharField(_("Url"), max_length=300,
+                               default="https://www.youtube.com/embed/",
+                               blank=True)
     order = models.IntegerField(_("Order"),)
     required = models.BooleanField(_("Required"),)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
@@ -79,8 +82,9 @@ class Question(models.Model):
                                related_name="questions")
     type = models.CharField(_("Type"), max_length=200, choices=QUESTION_TYPES,
                             default=TEXT)
-    choices = models.TextField(_("Choices"), blank=True, null=True,
-                               help_text=CHOICES_HELP_TEXT)
+    choices = models.CharField(_("Choices"), blank=True, null=True,
+                               help_text=CHOICES_HELP_TEXT,
+                               max_length=500)
     image = models.ImageField(verbose_name=_("image"),
                               upload_to= "survey/images/questions" + "/%Y/%m/%d/",
                               null=True, blank= True)
@@ -366,3 +370,6 @@ class Question(models.Model):
             msg += "(*) "
         msg += "{}".format(self.get_clean_choices())
         return msg
+    
+    def slugify(self):
+            return slugify(str(self))

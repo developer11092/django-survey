@@ -35,6 +35,7 @@ class ResponseForm(models.ModelForm):
         """ Expects a survey object to be passed in initially """
         self.survey = kwargs.pop('survey')
         self.user = kwargs.pop('user')
+        self.question = kwargs.pop('question')
         try:
             self.step = int(kwargs.pop('step'))
         except KeyError:
@@ -136,6 +137,8 @@ class ResponseForm(models.ModelForm):
             # select one of the options
             if question.type in [Question.SELECT, Question.SELECT_IMAGE]:
                 qchoices = tuple([('', '-------------')]) + qchoices
+            if question.type in [Question.SELECT, Question.VIDEO]:
+                qchoices = tuple([('', '-------------')]) + qchoices
         return qchoices
 
     def get_question_field(self, question, **kwargs):
@@ -206,6 +209,7 @@ class ResponseForm(models.ModelForm):
         if response is None:
             response = super(ResponseForm, self).save(commit=False)
         response.survey = self.survey
+        response.question = self.question
         response.interview_uuid = self.uuid
         if self.user.is_authenticated:
             response.user = self.user
@@ -230,6 +234,10 @@ class ResponseForm(models.ModelForm):
                     answer = Answer(question=question)
                 if question.type == Question.SELECT_IMAGE:
                     value, img_src = field_value.split(":", 1)
+                    # TODO
+                answer.body = field_value
+                if question.type == Question.VIDEO:
+                    value, vid_src = field_value.split(":", 1)
                     # TODO
                 answer.body = field_value
                 data['responses'].append((answer.question.id, answer.body))
