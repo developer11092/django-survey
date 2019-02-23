@@ -10,7 +10,7 @@ from django.utils.text import slugify
 
 from survey.models import Answer, Question, Response
 from survey.signals import survey_completed
-from survey.widgets import ImageSelectWidget, VideoSelectWidget
+from survey.widgets import ImageSelectWidget
 
 LOGGER = logging.getLogger(__name__)
 
@@ -24,7 +24,6 @@ class ResponseForm(models.ModelForm):
         Question.SELECT: forms.Select,
         Question.SELECT_IMAGE: ImageSelectWidget,
         Question.SELECT_MULTIPLE: forms.CheckboxSelectMultiple,
-        Question.VIDEO: VideoSelectWidget,
     }
 
     class Meta(object):
@@ -136,8 +135,6 @@ class ResponseForm(models.ModelForm):
             # select one of the options
             if question.type in [Question.SELECT, Question.SELECT_IMAGE]:
                 qchoices = tuple([('', '-------------')]) + qchoices
-            if question.type in [Question.SELECT, Question.VIDEO]:
-                qchoices = tuple([('', '-------------')]) + qchoices
         return qchoices
 
     def get_question_field(self, question, **kwargs):
@@ -180,7 +177,7 @@ class ResponseForm(models.ModelForm):
             field.widget.attrs["category"] = question.category.name
         else:
             field.widget.attrs["category"] = ""
-        logging.debug("Field for %s : %s", question, field.__dict__)
+        # logging.debug("Field for %s : %s", question, field.__dict__)
         self.fields['question_%d' % question.pk] = field
 
     def has_next_step(self):
@@ -208,7 +205,6 @@ class ResponseForm(models.ModelForm):
         if response is None:
             response = super(ResponseForm, self).save(commit=False)
         response.survey = self.survey
-        response.question = self.question
         response.interview_uuid = self.uuid
         if self.user.is_authenticated:
             response.user = self.user
@@ -233,10 +229,6 @@ class ResponseForm(models.ModelForm):
                     answer = Answer(question=question)
                 if question.type == Question.SELECT_IMAGE:
                     value, img_src = field_value.split(":", 1)
-                    # TODO
-                answer.body = field_value
-                if question.type == Question.VIDEO:
-                    value, vid_src = field_value.split(":", 1)
                     # TODO
                 answer.body = field_value
                 data['responses'].append((answer.question.id, answer.body))

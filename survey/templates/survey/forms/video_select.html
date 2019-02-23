@@ -1,6 +1,7 @@
-<input id="id_{{ name }}" name="{{ name }}" type="hidden" value=""/>
 {% for choice in choices %}
-	<a href="#" onclick="setResponse('id_{{ name }}', '{{ choice.full_value }}');">
-		<iframe frameborder="0" marginwidth="0" marginheight="0" scrolling="NO" id="vid_{{ name }}_{{ choice.index }}" src="{{ choice.vid_src }}" width="728" height="90">
+	<a href="#">
+		<video width="320" height="240" controls>
+			<source src="{{  }}" type="video/mp4">
+		</video>
 	</a>
 {% endfor %}

@@ -54,7 +54,6 @@ class Question(models.Model):
     SELECT_IMAGE = 'select_image'
     SELECT_MULTIPLE = 'select-multiple'
     INTEGER = 'integer'
-    VIDEO = 'video'
 
     QUESTION_TYPES = (
         (TEXT, _('text (multiple line)')),
@@ -64,13 +63,9 @@ class Question(models.Model):
         (SELECT_MULTIPLE, _('Select Multiple')),
         (SELECT_IMAGE, _('Select Image')),
         (INTEGER, _('integer')),
-        (VIDEO, _('video')),
     )
 
-    text = models.CharField(_("Question"), max_length=300)
-    vid_url = models.CharField(_("Url"), max_length=300,
-                               default="https://www.youtube.com/embed/",
-                               blank=True)
+    text = models.TextField(_("Text"))
     order = models.IntegerField(_("Order"),)
     required = models.BooleanField(_("Required"),)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
@@ -82,15 +77,11 @@ class Question(models.Model):
                                related_name="questions")
     type = models.CharField(_("Type"), max_length=200, choices=QUESTION_TYPES,
                             default=TEXT)
-    choices = models.CharField(_("Choices"), blank=True, null=True,
-                               help_text=CHOICES_HELP_TEXT,
-                               max_length=500)
+    choices = models.TextField(_("Choices"), blank=True, null=True,
+                               help_text=CHOICES_HELP_TEXT)
     image = models.ImageField(verbose_name=_("image"),
                               upload_to= "survey/images/questions" + "/%Y/%m/%d/",
                               null=True, blank= True)
-    video = models.FileField(verbose_name=_("video"),
-                             upload_to= "survey/video/questions" + "/%Y/%m/%d/",
-                             null=True, blank=True)
 
     class Meta(object):
         verbose_name = _('question')
@@ -370,6 +361,3 @@ class Question(models.Model):
             msg += "(*) "
         msg += "{}".format(self.get_clean_choices())
         return msg
-    
-    def slugify(self):
-            return slugify(str(self))
