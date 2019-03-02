@@ -24,6 +24,7 @@ urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url('', admin.site.urls),
     url('admin/', admin.site.urls),
+    url(r'^api-auth/', include('rest_framework.urls')),
 ]
 
 if settings.DEBUG: 
