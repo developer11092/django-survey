@@ -51,18 +51,23 @@ class Question(models.Model):
     SHORT_TEXT = 'short-text'
     RADIO = 'radio'
     SELECT = 'select'
-    SELECT_IMAGE = 'select_image'
     SELECT_MULTIPLE = 'select-multiple'
     INTEGER = 'integer'
+    SELECT_IMAGE = 'select_image'
+    ADD_DATE = 'add_date'
+    ADD_IMAGE = 'add_image'
 
     QUESTION_TYPES = (
-        (TEXT, _('text (multiple line)')),
-        (SHORT_TEXT, _('short text (one line)')),
-        (RADIO, _('radio')),
-        (SELECT, _('select')),
+        (TEXT, _('Long text (multiple line)')),
+        (SHORT_TEXT, _('Short text (one line)')),
+        (RADIO, _('Radio Select')),
+        (SELECT, _('Empty')),
         (SELECT_MULTIPLE, _('Select Multiple')),
+        (INTEGER, _('Numeric')),
         (SELECT_IMAGE, _('Select Image')),
-        (INTEGER, _('integer')),
+        (ADD_DATE, _('Add Date')),
+        (ADD_IMAGE, _('Add Image')),
+
     )
 
     text = models.TextField(_("Text"))

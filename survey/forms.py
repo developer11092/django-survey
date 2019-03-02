@@ -22,8 +22,10 @@ class ResponseForm(models.ModelForm):
         Question.SHORT_TEXT: forms.TextInput,
         Question.RADIO: forms.RadioSelect,
         Question.SELECT: forms.Select,
-        Question.SELECT_IMAGE: ImageSelectWidget,
         Question.SELECT_MULTIPLE: forms.CheckboxSelectMultiple,
+        Question.SELECT_IMAGE: ImageSelectWidget,
+        Question.ADD_DATE: forms.DateTimeField,
+        Question.ADD_IMAGE: forms.ImageField,
     }
 
     class Meta(object):
@@ -134,7 +136,7 @@ class ResponseForm(models.ModelForm):
             # add an empty option at the top so that the user has to explicitly
             # select one of the options
             if question.type in [Question.SELECT, Question.SELECT_IMAGE]:
-                qchoices = tuple([('', '-------------')]) + qchoices
+                qchoices = tuple([('', '')]) + qchoices
         return qchoices
 
     def get_question_field(self, question, **kwargs):
@@ -148,9 +150,11 @@ class ResponseForm(models.ModelForm):
             Question.TEXT: forms.CharField,
             Question.SHORT_TEXT: forms.CharField,
             Question.SELECT_MULTIPLE: forms.MultipleChoiceField,
-            Question.INTEGER: forms.IntegerField
+            Question.INTEGER: forms.IntegerField,
+            Question.ADD_DATE: forms.DateTimeField,
+            Question.ADD_IMAGE: forms.ImageField,
         }
-        # logging.debug("Args passed to field %s", kwargs)
+        logging.debug("Args passed to field %s", kwargs)
         try:
             return FIELDS[question.type](**kwargs)
         except KeyError:
@@ -177,7 +181,7 @@ class ResponseForm(models.ModelForm):
             field.widget.attrs["category"] = question.category.name
         else:
             field.widget.attrs["category"] = ""
-        # logging.debug("Field for %s : %s", question, field.__dict__)
+        logging.debug("Field for %s : %s", question, field.__dict__)
         self.fields['question_%d' % question.pk] = field
 
     def has_next_step(self):
