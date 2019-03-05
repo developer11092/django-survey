@@ -21,10 +21,9 @@ urlpatterns = [
     # url('accounts/', include('django.contrib.auth.urls')),
     # url(r'^rosetta/', include('rosetta.urls')),
     url('survey/', include('survey.urls')),
-    # url(r'^admin/', admin.site.urls),
-    url('', admin.site.urls),
-    url('admin/', admin.site.urls),
-    url(r'^api-auth/', include('rest_framework.urls')),
+    url(r'^admin/', admin.site.urls),
+    # url('', admin.site.urls),
+    # url('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG: 

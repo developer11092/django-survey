@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls import url
+from django.conf.urls import url, include
 
 from survey.views import ConfirmView, IndexView, SurveyCompleted, SurveyDetail
+from survey.views.serializerview import SurveyView #, QuestionView
 from survey.views.survey_result import serve_result_csv
+from rest_framework import routers
+
+routers = routers.DefaultRouter()
+routers.register('surveys', SurveyView)
+# routers.register('questions', QuestionView)
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='survey-list'),
@@ -15,4 +21,5 @@ urlpatterns = [
         name='survey-detail-step'),
     url(r'^confirm/(?P<uuid>\w+)/', ConfirmView.as_view(),
         name='survey-confirmation'),
+    url('api/', include(routers.urls))
 ]
