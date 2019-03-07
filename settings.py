@@ -135,6 +135,7 @@ INSTALLED_APPS = (
     'bootstrapform',
     'company',
     'rest_framework',
+    'rest_framework.authtoken',
     # 'rosetta',
 )
 
