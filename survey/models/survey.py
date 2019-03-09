@@ -4,7 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from company.models import Company
-
+# from .question import Question
 
 
 try:
@@ -67,3 +67,7 @@ class Survey(models.Model):
         self._submission_count = len(Answer.objects.filter(
             question__survey=self.id).values('session_key').distinct())
         return self._submission_count
+
+    @property
+    def questions(self):
+        return self.question_set.all()

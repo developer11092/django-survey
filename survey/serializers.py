@@ -1,19 +1,41 @@
 from rest_framework import serializers
 from rest_framework import exceptions
-from .models import Survey#, Question
+from .models import Survey, Question
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
+
+# class QuestionSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Question
+#         fields = "__all__"
+
+#         read_only_fields = {'survey', }
+
+# class SurveySerializer(serializers.ModelSerializer):
+#     questions = QuestionSerializer(many=True)
+
+#     class Meta:
+#         model = Survey
+#         fields = [
+#             "id",
+#             "name",
+#             "description",
+#             "is_published",
+#             "need_logged_user",
+#             "display_by_question",
+#             "template",
+#             "allows_multiple_interviews",
+#             "company",
+#             "question", 
+#         ]
 
 class SurveySerializer(serializers.ModelSerializer):
     class Meta:
         model = Survey
         fields = "__all__"
 
-# class QuestionSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Question
-#         fields = "__all__"
+
 
 
 class LoginSerializer(serializers.Serializer):
