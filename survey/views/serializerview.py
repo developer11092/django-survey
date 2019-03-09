@@ -19,6 +19,11 @@ class SurveyView(viewsets.ModelViewSet):
 #     serializer_class = QuestionSerializer
 
 class LoginView(APIView):
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return [permission() for permission in (AllowAny,)]
+        return super(LoginView, self).get_permissions()
+
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -27,10 +32,6 @@ class LoginView(APIView):
         token, created = Token.objects.get_or_create(user = user)
         return Response({"token": token.key}, status = 200)
 
-    def get_permissions(self):
-        if self.action == 'retrieve':
-            return [AllowAny(), ]        
-        return super(LoginView, self).get_permissions()
 
 # class LogoutView(APIView):
 #     authentication_classes = (TokenAuthentication)
@@ -42,6 +43,11 @@ class LoginView(APIView):
 
 
 class LogoutView(APIView):
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [permission() for permission in (AllowAny,)]
+        return super(LoginView, self).get_permissions()
+
     def get(self, request):
         # simply delete the token to force a login
         user_token = request.user.auth_token
