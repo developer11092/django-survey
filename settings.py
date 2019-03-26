@@ -10,14 +10,6 @@ except:
 
 colorama.init()
 
-# print("\033[33m"
-#       "You're using a dev settings file. It includes django rosetta (in order "
-#       " for dev to update translations) that is only useful for dev. "
-#       "If you're a developper you need to 'pip install -r requirement_dev.txt', "
-#       "If you want to use the app without doing your own settings you should"
-#       " remove django-rosetta from the installed apps in the settings."
-#       "\033[39m")
-
 DEBUG = True
 ROOT = os.path.dirname(os.path.abspath(__file__))
 CSV_DIR = os.path.join(ROOT, "csv")
@@ -81,7 +73,6 @@ TEMPLATES = [
         'OPTIONS': {
             'debug': DEBUG,
             'context_processors': [
-                # Default
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.i18n',
@@ -106,16 +97,11 @@ MIDDLEWARE = (
 
 
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': (
-        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
         'rest_framework.permissions.IsAuthenticated',
     ),
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework.authentication.BasicAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     )
 }
