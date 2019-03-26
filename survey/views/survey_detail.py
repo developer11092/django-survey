@@ -22,8 +22,7 @@ class SurveyDetail(View):
         if survey.need_logged_user and not request.user.is_authenticated:
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
         categories = Category.objects.filter(survey=survey).order_by('order')
-        form = ResponseForm(survey=survey, user=request.user,
-                            step=kwargs.get('step', 0))
+        form = ResponseForm(survey=survey, user=request.user, step=kwargs.get('step', 0))
         context = {
             'response_form': form,
             'survey': survey,

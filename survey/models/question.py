@@ -82,11 +82,13 @@ class Question(models.Model):
                                related_name="questions")
     type = models.CharField(_("Type"), max_length=200, choices=QUESTION_TYPES,
                             default=TEXT)
+    # lat = models.DecimalField(_("latitude"), max_digits=9, decimal_places=6, blank=True, null=True)
+    # long = models.DecimalField(_("longitude"), max_digits=9, decimal_places=6, blank=True, null=True)
     choices = models.TextField(_("Choices"), blank=True, null=True,
                                help_text=CHOICES_HELP_TEXT)
-    image = models.ImageField(verbose_name=_("image"),
-                              upload_to= "survey/images/questions" + "/%Y/%m/%d/",
-                              null=True, blank= True)
+    # image = models.ImageField(verbose_name=_("image"),
+    #                           upload_to= "survey/images/questions" + "/%Y/%m/%d/",
+    #                           null=True, blank= True)
 
     class Meta(object):
         verbose_name = _('question')

@@ -2,6 +2,8 @@
 
 from django.contrib import admin
 
+from import_export.admin import ImportExportModelAdmin
+
 from survey.models import Answer, Category, Question, Response, Survey
 
 from .actions import make_published
@@ -11,6 +13,7 @@ class QuestionInline(admin.TabularInline):
     model = Question
     ordering = ('order', 'category',)
     extra = 1
+    # exclude = ('lat','long')
 
 
 class CategoryInline(admin.TabularInline):
@@ -18,7 +21,7 @@ class CategoryInline(admin.TabularInline):
     extra = 0
 
 
-class SurveyAdmin(admin.ModelAdmin):
+class SurveyAdmin(ImportExportModelAdmin):
     list_display = ('name', 'is_published', 'need_logged_user', 'template')
     list_filter = ('is_published', 'need_logged_user')
     inlines = [CategoryInline, QuestionInline]

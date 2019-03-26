@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     'survey',
     'bootstrapform',
     'company',
+    'import_export',
     'rest_framework',
     'rest_framework.authtoken',
     # 'rosetta',
@@ -176,3 +177,5 @@ LOGGING = {
         },
     }
 }
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True

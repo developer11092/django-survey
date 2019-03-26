@@ -1,0 +1,19 @@
+{% extends 'survey/base.html' %}
+{% load i18n %}
+{% load survey_extras %}
+
+{% block extrajs %}
+    {{response_form.media}}
+{% endblock %}
+
+{% block body %}
+{% comment %} <p id="mapContainer"></p> {% endcomment %}
+	<div>
+	<form id="demo" method="post">
+	    {% csrf_token %}
+        <input type="text" id = "lat" name="lat" placeholder="latitude" />
+        <input type="text" id = "long" name="long" placeholder="longitude" />
+        {% comment %} <button type="submit" class="btn btn-primary" onClick="getLocation()">Get Location</button> {% endcomment %}
+	</form>
+	</div>
+{% endblock %}
