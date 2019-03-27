@@ -137,6 +137,9 @@ class Question(models.Model):
             for strng in string_list
         ]
 
+    def constraints_conditions():
+        
+
     def answers_cardinality(self, min_cardinality=None, group_together=None,
                             group_by_letter_case=None, group_by_slugify=None,
                             filter=None, other_question=None):
