@@ -80,6 +80,8 @@ class Question(models.Model):
     type = models.CharField(_("Type"), max_length=200, choices=QUESTION_TYPES, default=TEXT)
     choices = models.CharField(_("Choices"), blank=True, null=True,
                                help_text=CHOICES_HELP_TEXT, max_length=500)
+    constraints = models.CharField(_("Choices"), blank=True, null=True,
+                              help_text="Here you can set the conditions on questions", max_length=250)
     image = models.ImageField(verbose_name=_("image"),
                               upload_to= "survey/images/questions" + "/%Y/%m/%d/",
                               null=True, blank= True)
