@@ -22,7 +22,7 @@ class CategoryInline(admin.TabularInline):
 
 
 class SurveyAdmin(ImportExportModelAdmin):
-    list_display = ('name', 'is_published', 'need_logged_user', 'template')
+    list_display = ('name', 'is_published', 'need_logged_user')
     list_filter = ('is_published', 'need_logged_user')
     inlines = [CategoryInline, QuestionInline]
     actions = [make_published]

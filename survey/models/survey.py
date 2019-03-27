@@ -23,7 +23,7 @@ class Survey(models.Model):
     is_published = models.BooleanField(_("Users can see it and answer it"),)
     need_logged_user = models.BooleanField(_("Only authenticated users can see it and answer it"),)
     display_by_question = models.BooleanField(_("Display by question"),)
-    template = models.CharField(_("Template"), max_length=255, null=True, blank=True)
+    # template = models.CharField(_("Template"), max_length=255, null=True, blank=True)
     allows_multiple_interviews = models.BooleanField(verbose_name=_("Allows multiple interviews"),
                                                      blank=True, default=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE,

@@ -53,9 +53,7 @@ class Question(models.Model):
     SELECT = 'select'
     SELECT_MULTIPLE = 'select-multiple'
     INTEGER = 'integer'
-    SELECT_IMAGE = 'select_image'
-    ADD_DATE = 'add_date'
-    ADD_IMAGE = 'add_image'
+
 
     QUESTION_TYPES = (
         (TEXT, _('Long text (multiple line)')),
@@ -64,13 +62,10 @@ class Question(models.Model):
         (SELECT, _('Empty')),
         (SELECT_MULTIPLE, _('Select Multiple')),
         (INTEGER, _('Numeric')),
-        (SELECT_IMAGE, _('Select Image')),
-        (ADD_DATE, _('Add Date')),
-        (ADD_IMAGE, _('Add Image')),
 
     )
 
-    text = models.TextField(_("Text"))
+    text = models.CharField(_("Text"), max_length=500)
     order = models.IntegerField(_("Order"),)
     required = models.BooleanField(_("Required"),)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
@@ -80,15 +75,14 @@ class Question(models.Model):
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE,
                                verbose_name=_("Survey"),
                                related_name="questions")
-    type = models.CharField(_("Type"), max_length=200, choices=QUESTION_TYPES,
-                            default=TEXT)
-    # lat = models.DecimalField(_("latitude"), max_digits=9, decimal_places=6, blank=True, null=True)
-    # long = models.DecimalField(_("longitude"), max_digits=9, decimal_places=6, blank=True, null=True)
-    choices = models.TextField(_("Choices"), blank=True, null=True,
-                               help_text=CHOICES_HELP_TEXT)
-    # image = models.ImageField(verbose_name=_("image"),
-    #                           upload_to= "survey/images/questions" + "/%Y/%m/%d/",
-    #                           null=True, blank= True)
+    lat = models.DecimalField(_("Latitude"), max_digits=15, decimal_places=12, blank=True, null=True)
+    lng = models.DecimalField(_("Longitude"), max_digits=15, decimal_places=12, blank=True, null=True)
+    type = models.CharField(_("Type"), max_length=200, choices=QUESTION_TYPES, default=TEXT)
+    choices = models.CharField(_("Choices"), blank=True, null=True,
+                               help_text=CHOICES_HELP_TEXT, max_length=500)
+    image = models.ImageField(verbose_name=_("image"),
+                              upload_to= "survey/images/questions" + "/%Y/%m/%d/",
+                              null=True, blank= True)
 
     class Meta(object):
         verbose_name = _('question')

@@ -10,7 +10,7 @@ from django.utils.text import slugify
 
 from survey.models import Answer, Question, Response
 from survey.signals import survey_completed
-from survey.widgets import ImageSelectWidget
+
 
 LOGGER = logging.getLogger(__name__)
 
@@ -23,9 +23,6 @@ class ResponseForm(models.ModelForm):
         Question.RADIO: forms.RadioSelect,
         Question.SELECT: forms.Select,
         Question.SELECT_MULTIPLE: forms.CheckboxSelectMultiple,
-        Question.SELECT_IMAGE: ImageSelectWidget,
-        Question.ADD_DATE: forms.DateTimeField,
-        Question.ADD_IMAGE: forms.ImageField,
     }
 
     class Meta(object):
@@ -135,8 +132,8 @@ class ResponseForm(models.ModelForm):
             qchoices = question.get_choices()
             # add an empty option at the top so that the user has to explicitly
             # select one of the options
-            if question.type in [Question.SELECT, Question.SELECT_IMAGE]:
-                qchoices = tuple([('', '')]) + qchoices
+            # if question.type in [Question.SELECT, Question.SELECT_IMAGE]:
+            #     qchoices = tuple([('', '')]) + qchoices
         return qchoices
 
     def get_question_field(self, question, **kwargs):
@@ -151,8 +148,6 @@ class ResponseForm(models.ModelForm):
             Question.SHORT_TEXT: forms.CharField,
             Question.SELECT_MULTIPLE: forms.MultipleChoiceField,
             Question.INTEGER: forms.IntegerField,
-            Question.ADD_DATE: forms.DateTimeField,
-            Question.ADD_IMAGE: forms.ImageField,
         }
         logging.debug("Args passed to field %s", kwargs)
         try:
@@ -231,8 +226,8 @@ class ResponseForm(models.ModelForm):
                 answer = self._get_preexisting_answer(question)
                 if answer is None:
                     answer = Answer(question=question)
-                if question.type == Question.SELECT_IMAGE:
-                    value, img_src = field_value.split(":", 1)
+                # if question.type == Question.SELECT_IMAGE:
+                #     value, img_src = field_value.split(":", 1)
                     # TODO
                 answer.body = field_value
                 data['responses'].append((answer.question.id, answer.body))
