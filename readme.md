@@ -260,40 +260,6 @@ create a superuser, load the test dump, then launch the server :
   pylint survey
 ~~~~
 
-# Translating the project
-
-Django survey's is available in multiple language.
-Your contribution would be very appreciated if you
-know a language that is not yet available.
-
-## Language available
-
-- [x] French thanks to Pierre Sassoulas (@Pierre-Sassoulas)
-- [x] English
-- [x] Japanese thanks to Nobukuni Suzue (@nsuzue)
-
-## As a developper
-
-If your language already exists and you're a developper :
-
-~~~~
-  python manage.py makemessages --no-obsolete --no-wrap
-  python manage.py runserver
-  # Access http://localhost:8000/rosetta
-~~~~
-
-If your language is not yet available in rosetta,
-[this stack overflow question](https://stackoverflow.com/questions/12946830/how-to-add-new-languages-into-django)
-should work even for language not handled by django.
-
-## As a translator
-
-If you're not a developper, open an issue on github and ask for a .po
-file in your language. I will generate it for you, so you can edit it with an online editor.
-I will then integrate it to the project and credit you
-[here](https://github.com/developer11092/django-survey#language-available).
-
-
 # Credits
 
 Based on [jessykate's django-survey](https://github.com/jessykate/django-survey),

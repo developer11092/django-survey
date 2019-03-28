@@ -27,13 +27,8 @@ with open("requirements.txt", "r") as fh:
     require = fh.readlines()
 require = [x.strip() for x in require]
 
-with open("requirements_dev.txt", "r") as fh:
-    extras_require = fh.readlines()
-# Remove the first two line (-r requirements.txt and a blank line)
-extras_require = {'dev': [x.strip() for x in extras_require[2:]]}
-
 setuptools.setup(
-    name="django-survey-and-report",
+    name="django-survey",
     version="1.3.1",
     description=description,
     long_description=long_description,

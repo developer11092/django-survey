@@ -138,7 +138,13 @@ class Question(models.Model):
         ]
 
     def constraints_conditions():
-        pass
+        choices = []
+        text = []
+        choices.append(Question.choices)
+        text.append(Question.text)
+
+        
+
 
     def answers_cardinality(self, min_cardinality=None, group_together=None,
                             group_by_letter_case=None, group_by_slugify=None,

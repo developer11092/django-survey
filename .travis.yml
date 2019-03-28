@@ -1,11 +1,11 @@
 language: python
 python:
-  - "3.6"
+  - "3.7"
 
 before_install:
   - sudo apt-get install -y python3-tk
   - sudo apt-get install -y texlive-latex-base pgf texlive-pictures texlive-latex-extra
   - sudo apt-get install -y libblas-dev liblapack-dev libatlas-base-dev gfortran
-install: pip install -r requirements_dev.txt
+install: pip install -r requirements.txt
 script: python manage.py test
 after_success: ./coverage.sh;coveralls
