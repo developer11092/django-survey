@@ -7,35 +7,35 @@ CSV or PDF using your native language.
 
 The latest version still compatible with python 2.7 is 1.2.1.
 
-[![Build Status](https://travis-ci.org/Pierre-Sassoulas/django-survey.svg?branch=master)](https://travis-ci.org/Pierre-Sassoulas/django-survey)
-[![Coverage Status](https://coveralls.io/repos/github/Pierre-Sassoulas/django-survey/badge.svg?branch=master)](https://coveralls.io/github/Pierre-Sassoulas/django-survey?branch=master)
+[![Build Status](https://travis-ci.org/developer11092/django-survey.svg?branch=master)](https://travis-ci.org/developer11092/django-survey)
+[![Coverage Status](https://coveralls.io/repos/github/developer11092/django-survey/badge.svg?branch=master)](https://coveralls.io/github/developer11092/django-survey?branch=master)
 [![PyPI version](https://badge.fury.io/py/django-survey-and-report.svg)](https://badge.fury.io/py/django-survey-and-report)
 
 # Summary
 
-[Getting started](https://github.com/Pierre-Sassoulas/django-survey#getting-started)
+[Getting started](https://github.com/developer11092/django-survey#getting-started)
 
-[Making a survey](https://github.com/Pierre-Sassoulas/django-survey#making-a-survey)
+[Making a survey](https://github.com/developer11092/django-survey#making-a-survey)
 
-[Generating a pdf report from the survey's result](https://github.com/Pierre-Sassoulas/django-survey#generating-a-pdf-report-from-the-surveys-result)
-  - [Basic example](https://github.com/Pierre-Sassoulas/django-survey#basic-example)
-  - [Sankey's diagram](https://github.com/Pierre-Sassoulas/django-survey#sankey-diagram)
-  - [Advanced example](https://github.com/Pierre-Sassoulas/django-survey#advanced-example)
-  - [Implementing a custom treatment](https://github.com/Pierre-Sassoulas/django-survey#implementing-a-custom-treatment)
+[Generating a pdf report from the survey's result](https://github.com/developer11092/django-survey#generating-a-pdf-report-from-the-surveys-result)
+  - [Basic example](https://github.com/developer11092/django-survey#basic-example)
+  - [Sankey's diagram](https://github.com/developer11092/django-survey#sankey-diagram)
+  - [Advanced example](https://github.com/developer11092/django-survey#advanced-example)
+  - [Implementing a custom treatment](https://github.com/developer11092/django-survey#implementing-a-custom-treatment)
 
-[Contributing as a developper](https://github.com/Pierre-Sassoulas/django-survey#contributing-as-a-developper)
-  - [Development environement](https://github.com/Pierre-Sassoulas/django-survey#development-environement)
-  - [Test](https://github.com/Pierre-Sassoulas/django-survey#test)
-  - [Coverage](https://github.com/Pierre-Sassoulas/django-survey#coverage)
-  - [Sorting imports](https://github.com/Pierre-Sassoulas/django-survey#sorting-imports)
-  - [Lint](https://github.com/Pierre-Sassoulas/django-survey#lint-)
+[Contributing as a developper](https://github.com/developer11092/django-survey#contributing-as-a-developper)
+  - [Development environement](https://github.com/developer11092/django-survey#development-environement)
+  - [Test](https://github.com/developer11092/django-survey#test)
+  - [Coverage](https://github.com/developer11092/django-survey#coverage)
+  - [Sorting imports](https://github.com/developer11092/django-survey#sorting-imports)
+  - [Lint](https://github.com/developer11092/django-survey#lint-)
 
-[Translating the project](https://github.com/Pierre-Sassoulas/django-survey#translating-the-project)
-  - [Language available](https://github.com/Pierre-Sassoulas/django-survey#language-available)
-  - [As a developper](https://github.com/Pierre-Sassoulas/django-survey#as-a-developper)
-  - [As a translator](https://github.com/Pierre-Sassoulas/django-survey#as-a-translator)
+[Translating the project](https://github.com/developer11092/django-survey#translating-the-project)
+  - [Language available](https://github.com/developer11092/django-survey#language-available)
+  - [As a developper](https://github.com/developer11092/django-survey#as-a-developper)
+  - [As a translator](https://github.com/developer11092/django-survey#as-a-translator)
 
-[Credit](https://github.com/Pierre-Sassoulas/django-survey#credits)
+[Credit](https://github.com/developer11092/django-survey#credits)
 
 # Getting started
 
@@ -291,7 +291,7 @@ should work even for language not handled by django.
 If you're not a developper, open an issue on github and ask for a .po
 file in your language. I will generate it for you, so you can edit it with an online editor.
 I will then integrate it to the project and credit you
-[here](https://github.com/Pierre-Sassoulas/django-survey#language-available).
+[here](https://github.com/developer11092/django-survey#language-available).
 
 
 # Credits
