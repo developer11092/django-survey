@@ -8,7 +8,8 @@ CSV or PDF using your native language.
 The latest version still compatible with python 2.7 is 1.2.1.
 
 [![Build Status](https://travis-ci.org/developer11092/django-survey.svg?branch=master)](https://travis-ci.org/developer11092/django-survey)
-[![Coverage Status](https://coveralls.io/repos/github/developer11092/django-survey/badge.svg?branch=master)](https://coveralls.io/github/developer11092/django-survey?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/developer11092/django-survey/badge.svg)](https://coveralls.io/github/developer11092/django-survey)
+<!-- [![Coverage Status](https://coveralls.io/repos/github/developer11092/django-survey/badge.svg?branch=master)](https://coveralls.io/github/developer11092/django-survey?branch=master) -->
 <!-- [![PyPI version](https://badge.fury.io/py/django-survey-and-report.svg)](https://badge.fury.io/py/django-survey-and-report) -->
 
 # Summary
