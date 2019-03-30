@@ -23,7 +23,7 @@ class ResponseForm(models.ModelForm):
         Question.RADIO: forms.RadioSelect,
         Question.SELECT: forms.Select,
         Question.SELECT_MULTIPLE: forms.CheckboxSelectMultiple,
-        Question.ADD_IMAGE: forms.ImageField,
+        # Question.ADD_IMAGE: forms.ImageField,
     }
 
     class Meta(object):
@@ -149,7 +149,7 @@ class ResponseForm(models.ModelForm):
             Question.SHORT_TEXT: forms.CharField,
             Question.SELECT_MULTIPLE: forms.MultipleChoiceField,
             Question.INTEGER: forms.IntegerField,
-            Question.ADD_IMAGE: forms.ImageField,
+            # Question.ADD_IMAGE: forms.ImageField,
         }
         logging.debug("Args passed to field %s", kwargs)
         try:

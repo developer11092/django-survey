@@ -53,7 +53,7 @@ class Question(models.Model):
     SELECT = 'select'
     SELECT_MULTIPLE = 'select-multiple'
     INTEGER = 'integer'
-    ADD_IMAGE = 'image'
+    # ADD_IMAGE = 'image'
 
 
     QUESTION_TYPES = (
@@ -63,7 +63,7 @@ class Question(models.Model):
         (SELECT, _('Empty')),
         (SELECT_MULTIPLE, _('Select Multiple')),
         (INTEGER, _('Numeric')),
-        (ADD_IMAGE, _('Image')),
+        # (ADD_IMAGE, _('Image')),
     )
 
     text = models.CharField(_("Text"), max_length=500)
@@ -94,7 +94,7 @@ class Question(models.Model):
 
     def save(self, *args, **kwargs):
         if self.type in [Question.RADIO, Question.SELECT,
-                         Question.SELECT_MULTIPLE, Question.ADD_IMAGE]:
+                         Question.SELECT_MULTIPLE, """Question.ADD_IMAGE"""]:
             validate_choices(self.choices)
         super(Question, self).save(*args, **kwargs)
 

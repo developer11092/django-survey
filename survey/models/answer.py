@@ -60,7 +60,7 @@ class Answer(models.Model):
 
     def check_answer_body(self, question, body):
         if question.type in [Question.RADIO, Question.SELECT,
-                             Question.SELECT_MULTIPLE]:
+                             Question.SELECT_MULTIPLE, Question.ADD_IMAGE]:
             choices = question.get_clean_choices()
             if body:
                 if body[0] == "[":
