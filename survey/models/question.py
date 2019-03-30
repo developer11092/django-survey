@@ -63,7 +63,7 @@ class Question(models.Model):
         (SELECT, _('Empty')),
         (SELECT_MULTIPLE, _('Select Multiple')),
         (INTEGER, _('Numeric')),
-        (ADD_IMAGE, (_'Image')),
+        (ADD_IMAGE, _('Image')),
     )
 
     text = models.CharField(_("Text"), max_length=500)
