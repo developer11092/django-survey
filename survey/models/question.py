@@ -53,6 +53,7 @@ class Question(models.Model):
     SELECT = 'select'
     SELECT_MULTIPLE = 'select-multiple'
     INTEGER = 'integer'
+    ADD_IMAGE = 'image'
 
 
     QUESTION_TYPES = (
@@ -62,6 +63,7 @@ class Question(models.Model):
         (SELECT, _('Empty')),
         (SELECT_MULTIPLE, _('Select Multiple')),
         (INTEGER, _('Numeric')),
+        (ADD_IMAGE, (_'Image'))
 
     )
 
@@ -81,7 +83,7 @@ class Question(models.Model):
     choices = models.CharField(_("Choices"), blank=True, null=True,
                                help_text=CHOICES_HELP_TEXT, max_length=500)
     constraints = models.CharField(_("Choices"), blank=True, null=True,
-                              help_text="Here you can set the conditions on questions", max_length=250)
+                              help_text="Here you can set the logic jumps", max_length=250)
     image = models.ImageField(verbose_name=_("image"),
                               upload_to= "survey/images/questions" + "/%Y/%m/%d/",
                               null=True, blank= True)
@@ -93,7 +95,7 @@ class Question(models.Model):
 
     def save(self, *args, **kwargs):
         if self.type in [Question.RADIO, Question.SELECT,
-                         Question.SELECT_MULTIPLE]:
+                         Question.SELECT_MULTIPLE, Question.ADD_IMAGE]:
             validate_choices(self.choices)
         super(Question, self).save(*args, **kwargs)
 
@@ -137,11 +139,11 @@ class Question(models.Model):
             for strng in string_list
         ]
 
-    def constraints_conditions():
-        choices = []
-        text = []
-        choices.append(Question.choices)
-        text.append(Question.text)
+    # def constraints_conditions():
+    #     choices = []
+    #     text = []
+    #     choices.append(Question.choices)
+    #     text.append(Question.text)
     
     def answers_cardinality(self, min_cardinality=None, group_together=None,
                             group_by_letter_case=None, group_by_slugify=None,

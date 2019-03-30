@@ -12,9 +12,7 @@ class SurveyDetail(View):
 
     def get(self, request, *args, **kwargs):
         survey = get_object_or_404(Survey, is_published=True, id=kwargs['id'])
-        # if survey.template is not None and len(survey.template) > 4:
-        #     template_name = survey.template
-        # else:
+        
         if survey.display_by_question:
             template_name = 'survey/survey.html'
         else:
@@ -36,7 +34,7 @@ class SurveyDetail(View):
         if survey.need_logged_user and not request.user.is_authenticated:
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
         categories = Category.objects.filter(survey=survey).order_by('order')
-        form = ResponseForm(request.POST, survey=survey, user=request.user,
+        form = ResponseForm(request.POST, request.FILES, survey=survey, user=request.user,
                             step=kwargs.get('step', 0))
         context = {'response_form': form, 'survey': survey,
                    'categories': categories}
