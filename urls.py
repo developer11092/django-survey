@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # pylint: disable=invalid-name
-
+from django.urls import path
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings
@@ -11,6 +11,7 @@ from django.shortcuts import redirect
 from django.urls.base import reverse
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from survey.views import IndexView
 
 
 def home(request):
@@ -19,7 +20,8 @@ def home(request):
 
 
 urlpatterns = [
-    # url(r"^$", home, name="home"),
+    path('', IndexView.as_view(), name='survey-list'),
+    # path('', home , name="home"),
     # url('accounts/', include('django.contrib.auth.urls')),
     # url(r'^rosetta/', include('rosetta.urls')),
     url('survey/', include('survey.urls')),

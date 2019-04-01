@@ -81,7 +81,8 @@ class Question(models.Model):
     type = models.CharField(_("Type"), max_length=200, choices=QUESTION_TYPES, default=TEXT)
     choices = models.CharField(_("Choices"), blank=True, null=True,
                                help_text=CHOICES_HELP_TEXT, max_length=500)
-    constraints = models.CharField(_("Choices"), blank=True, null=True,
+    conditional = models.BooleanField(_("Is it Conditional?"))
+    condition_script = models.CharField(_("Logic Jumps"), blank=True, null=True,
                               help_text="Here you can set the logic jumps", max_length=250)
     image = models.ImageField(verbose_name=_("image"),
                               upload_to= "survey/images/questions" + "/%Y/%m/%d/",
@@ -138,35 +139,15 @@ class Question(models.Model):
             for strng in string_list
         ]
 
-    # def constraints_conditions():
-    #     choices = []
-    #     text = []
-    #     choices.append(Question.choices)
-    #     text.append(Question.text)
+    def constraints_logic():
+        cons_add = Question.constraints.get()
+        pass
+
     
     def answers_cardinality(self, min_cardinality=None, group_together=None,
                             group_by_letter_case=None, group_by_slugify=None,
                             filter=None, other_question=None):
-        """ Return a dictionary with answers as key and cardinality (int or
-            dict) as value
-
-        :param int min_cardinality: The minimum of answer we need to take it
-            into account.
-        :param dict group_together: A dictionary of value we need to group
-            together. The key (a string) is a placeholder for the list of value
-            it represent (A list of string)
-        :param boolean group_by_letter_case: If true we will group 'Aa' with
-            'aa and 'aA'. You can use group_together as a placeholder if you
-            want everything to be named 'Aa' and not 'aa'.
-        :param boolean group_by_slugify: If true we will group 'Aé b' with
-            'ae-b' and 'aè-B'. You can use group_together as a placeholder if
-            you want everything to be named 'Aé B' and not 'ae-b'.
-        :param list filter: We will exclude every string in this list.
-        :param Question other_question: Instead of returning the number of
-            person that answered the key as value, we will give the cardinality
-            for another answer taking only the user that answered the key into
-            account.
-        :rtype: Dict """
+                            
         if min_cardinality is None:
             min_cardinality = 0
         if group_together is None:
