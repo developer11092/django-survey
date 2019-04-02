@@ -84,9 +84,9 @@ class Question(models.Model):
     conditional = models.BooleanField(_("Is it Conditional?"))
     condition_script = models.CharField(_("Logic Jumps"), blank=True, null=True,
                               help_text="Here you can set the logic jumps", max_length=250)
-    image = models.ImageField(verbose_name=_("image"),
-                              upload_to= "survey/images/questions" + "/%Y/%m/%d/",
-                              null=True, blank= True)
+    image = models.FileField(_("File Upload"),
+                              help_text="Upload either image or any other field",
+                              upload_to= "survey/images/questions" + "/%Y/%m/%d/",)
 
     class Meta(object):
         verbose_name = _('question')
