@@ -51,35 +51,35 @@ class ResponseForm(models.ModelForm):
             else:
                 self.add_question(question, data)
 
-    def _get_preexisting_response(self):
-        """ Recover a pre-existing response in database.
+    # def _get_preexisting_response(self):
+    #     """ Recover a pre-existing response in database.
 
-        The user must be logged.
-        :rtype: Response or None"""
-        if not self.user.is_authenticated:
-            return None
-        # try:
-        #     return Response.objects.get(user=self.user, survey=self.survey)
-        # except Response.DoesNotExist:
-        #     LOGGER.debug("No saved response for '%s' for user %s",
-        #                  self.survey, self.user)
-        #     return None
+    #     The user must be logged.
+    #     :rtype: Response or None"""
+    #     if not self.user.is_authenticated:
+    #         return None
+    #     # try:
+    #     #     return Response.objects.get(user=self.user, survey=self.survey)
+    #     # except Response.DoesNotExist:
+    #     #     LOGGER.debug("No saved response for '%s' for user %s",
+    #     #                  self.survey, self.user)
+    #     #     return None
 
-    def _get_preexisting_answer(self, question):
-        """ Recover a pre-existing answer in database.
+    # def _get_preexisting_answer(self, question):
+    #     """ Recover a pre-existing answer in database.
 
-        The user must be logged. A Response containing the Answer must exists.
+    #     The user must be logged. A Response containing the Answer must exists.
 
-        :param Question question: The question we want to recover in the
-        response.
-        :rtype: Answer or None"""
-        response = self._get_preexisting_response()
-        if response is None:
-            return None
-        try:
-            return Answer.objects.get(question=question, response=response)
-        except Answer.DoesNotExist:
-            return None
+    #     :param Question question: The question we want to recover in the
+    #     response.
+    #     :rtype: Answer or None"""
+    #     response = self._get_preexisting_response()
+    #     if response is None:
+    #         return None
+    #     try:
+    #         return Answer.objects.get(question=question, response=response)
+    #     except Answer.DoesNotExist:
+    #         return None
 
     def get_question_initial(self, question, data):
         """ Get the initial value that we should use in the Form
@@ -88,7 +88,8 @@ class ResponseForm(models.ModelForm):
         :param dict data: Value from a POST request.
         :rtype: String or None  """
         initial = None
-        answer = self._get_preexisting_answer(question)
+        # answer = self._get_preexisting_answer(question)
+        answer = None
         if answer:
             # Initialize the field with values from the database if any
             if question.type == Question.SELECT_MULTIPLE:
@@ -163,7 +164,11 @@ class ResponseForm(models.ModelForm):
         :param Question question: The question to add.
         :param dict data: The pre-existing values from a post request. """
         kwargs = {"label": question.text,
-                  "required": question.required, }
+                  "required": question.required,
+                #   "lattitude":question.lat,
+                #   "longitude":question.lng,
+                #   "imageURL":question.image,
+                }
         initial = self.get_question_initial(question, data)
         if initial:
             kwargs["initial"] = initial
@@ -202,7 +207,8 @@ class ResponseForm(models.ModelForm):
         """ Save the response object """
         # Recover an existing response from the database if any
         #  There is only one response by logged user.
-        response = self._get_preexisting_response()
+        # response = self._get_preexisting_response()
+        response = None
         if response is None:
             response = super(ResponseForm, self).save(commit=False)
         response.survey = self.survey
@@ -225,7 +231,8 @@ class ResponseForm(models.ModelForm):
                 # the field name in the __init__ method of this form class.
                 q_id = int(field_name.split("_")[1])
                 question = Question.objects.get(pk=q_id)
-                answer = self._get_preexisting_answer(question)
+                # answer = self._get_preexisting_answer(question)
+                answer = None
                 if answer is None:
                     answer = Answer(question=question)
                 # if question.type == Question.SELECT_IMAGE:
