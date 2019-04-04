@@ -53,7 +53,7 @@ class Question(models.Model):
     SELECT = 'select'
     SELECT_MULTIPLE = 'select-multiple'
     INTEGER = 'integer'
-    # ADD_IMAGE = 'image'
+    ADD_IMAGE = 'image'
 
 
     QUESTION_TYPES = (
@@ -63,13 +63,13 @@ class Question(models.Model):
         (SELECT, _('Empty')),
         (SELECT_MULTIPLE, _('Select Multiple')),
         (INTEGER, _('Numeric')),
-        # (ADD_IMAGE, _('Image')),
+        (ADD_IMAGE, _('Image')),
     )
 
     text = models.CharField(_("Text"), max_length=500)
     order = models.IntegerField(_("Order"),)
     required = models.BooleanField(_("Required"),)
-    image = models.CharField(_("Image"), max_length=300)
+    # images = models.CharField(_("Image"), max_length=300)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
                                  verbose_name=_("Category"),
                                  blank=True, null=True,
@@ -85,10 +85,10 @@ class Question(models.Model):
     conditional = models.BooleanField(_("Is it Conditional?"))
     condition_script = models.CharField(_("Logic Jumps"), blank=True, null=True,
                               help_text="Here you can set the logic jumps", max_length=250)
-    # image = models.FileField(_("File Upload"),
-    #                           help_text="Upload either image or any other field",
-    #                           upload_to= "survey/images/questions" + "/%Y/%m/%d/",
-    #                           blank=True, null=True)
+    images = models.FileField(_("File Upload"),
+                              help_text="Upload either image or any other field",
+                              upload_to= "survey/images/questions" + "/%Y/%m/%d/",
+                              blank=True, null=True)
 
     class Meta(object):
         verbose_name = _('question')
@@ -142,8 +142,40 @@ class Question(models.Model):
         ]
 
     def constraints_logic():
-        cons_add = Question.constraints.get()
+        # cons_add = Question.constraints.get()
         pass
+
+    # def get_image_url(self):
+
+    #     if self.images is None:
+    #         return None
+    #     get_image_url = []
+    #     for image in images:
+    #         image.get_absolute_url(self)
+    #         image = images
+    #         if images:
+    #             get_image_url.append(images)
+    #     return get_image_url
+
+    def get_choices(self):
+        """
+        Parse the choices field and return a tuple formatted appropriately
+        for the 'choices' argument of a form widget.
+        """
+        choices_list = []
+        for choice in self.get_clean_choices():
+            choices_list.append((slugify(choice), choice))
+        choices_tuple = tuple(choices_list)
+        return choices_tuple
+
+    def __str__(self):
+        msg = "Question '{}' ".format(self.text)
+        # if self.images:
+        #     msg += self.get_image_url()
+        if self.required:
+            msg += "(*) "
+        msg += "{}".format(self.get_clean_choices())
+        return msg
 
     
     # def answers_cardinality(self, min_cardinality=None, group_together=None,
@@ -336,21 +368,3 @@ class Question(models.Model):
     #         if other_value not in filter + standardized_filter:
     #                 self._cardinality_plus_answer(cardinality, value,
     #                                               other_value)
-
-    def get_choices(self):
-        """
-        Parse the choices field and return a tuple formatted appropriately
-        for the 'choices' argument of a form widget.
-        """
-        choices_list = []
-        for choice in self.get_clean_choices():
-            choices_list.append((slugify(choice), choice))
-        choices_tuple = tuple(choices_list)
-        return choices_tuple
-
-    def __str__(self):
-        msg = "Question '{}' ".format(self.text)
-        if self.required:
-            msg += "(*) "
-        msg += "{}".format(self.get_clean_choices())
-        return msg

@@ -1,5 +1,6 @@
 {% load bootstrap %}
 
+    <img src="localhost:8000/media/survey/images/questions/2019/04/03/maxresdefault.jpg" alt="" class="img-responsive">
 <table class="table table-hover">
     <!--<thead>
       <tr>
@@ -22,6 +23,10 @@
 	            {% for field in form %}
                     {{ field }}
                     <br/>
+                {% endfor%}
+                {% for q in Question %}
+                    {{ q }}
+                    
                 {% endfor%}
             </td>
         </tr>
